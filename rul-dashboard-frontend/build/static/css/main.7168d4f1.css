@@ -1,0 +1,2 @@
+:root{--bg-start:#e8eef8;--bg-end:#f8fbff}*{box-sizing:border-box}#root,body,html{margin:0;min-height:100%;width:100%}body{background:radial-gradient(circle at 20% 10%,#e8eef8,#f8fbff);background:radial-gradient(circle at 20% 10%,var(--bg-start),var(--bg-end));font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif}
+/*# sourceMappingURL=main.7168d4f1.css.map*/

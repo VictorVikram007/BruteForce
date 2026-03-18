@@ -1,0 +1,15 @@
+{
+  "name": "rul-dashboard-backend",
+  "version": "1.0.0",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "train-models": "..\\.venv\\Scripts\\python.exe ..\\ml_models\\train_all_models.py --dataset ..\\battery_dataset_final.csv --output .\\data\\multi-model-results.json --max-rows 20000"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}

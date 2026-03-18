@@ -1,0 +1,21 @@
+:root {
+  --bg-start: #e8eef8;
+  --bg-end: #f8fbff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: radial-gradient(circle at 20% 10%, var(--bg-start), var(--bg-end));
+}

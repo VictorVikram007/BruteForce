@@ -1,0 +1,11 @@
+[
+  { "timestamp": "2026-03-10", "degradation": 0.12 },
+  { "timestamp": "2026-03-11", "degradation": 0.18 },
+  { "timestamp": "2026-03-12", "degradation": 0.24 },
+  { "timestamp": "2026-03-13", "degradation": 0.27 },
+  { "timestamp": "2026-03-14", "degradation": 0.35 },
+  { "timestamp": "2026-03-15", "degradation": 0.42 },
+  { "timestamp": "2026-03-16", "degradation": 0.49 },
+  { "timestamp": "2026-03-17", "degradation": 0.57 },
+  { "timestamp": "2026-03-18", "degradation": 0.66 }
+]

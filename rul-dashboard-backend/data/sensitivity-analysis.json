@@ -1,0 +1,43 @@
+{
+  "parameters": [
+    {
+      "name": "temperature",
+      "series": [
+        { "input": 20, "impact": 0.06 },
+        { "input": 24, "impact": 0.08 },
+        { "input": 28, "impact": 0.11 },
+        { "input": 32, "impact": 0.16 },
+        { "input": 36, "impact": 0.23 },
+        { "input": 40, "impact": 0.32 },
+        { "input": 44, "impact": 0.44 },
+        { "input": 48, "impact": 0.57 }
+      ]
+    },
+    {
+      "name": "depth_of_discharge",
+      "series": [
+        { "input": 30, "impact": 0.09 },
+        { "input": 40, "impact": 0.12 },
+        { "input": 50, "impact": 0.16 },
+        { "input": 60, "impact": 0.23 },
+        { "input": 70, "impact": 0.31 },
+        { "input": 80, "impact": 0.42 },
+        { "input": 90, "impact": 0.55 },
+        { "input": 95, "impact": 0.64 }
+      ]
+    },
+    {
+      "name": "charging_rate",
+      "series": [
+        { "input": 0.5, "impact": 0.08 },
+        { "input": 0.8, "impact": 0.12 },
+        { "input": 1.0, "impact": 0.16 },
+        { "input": 1.2, "impact": 0.21 },
+        { "input": 1.5, "impact": 0.29 },
+        { "input": 1.8, "impact": 0.38 },
+        { "input": 2.0, "impact": 0.47 },
+        { "input": 2.5, "impact": 0.61 }
+      ]
+    }
+  ]
+}
