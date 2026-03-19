@@ -8,6 +8,12 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
   Typography,
 } from "@mui/material";
 import {
@@ -53,6 +59,47 @@ const ModelComparison = () => {
         name: `${model.name} (${model.family || "standard"})`,
         rmse: Number(model.metrics.rmse.toFixed(2)),
         mae: Number(model.metrics.mae.toFixed(2)),
+      }));
+  }, [data]);
+
+  const performanceTableRows = useMemo(() => {
+    if (!data?.models?.length) {
+      return [];
+    }
+
+    const preferredOrder = [
+      "Linear Regression",
+      "Random Forest",
+      "Gradient Boosting",
+      "XGBoost",
+      "LightGBM",
+      "CatBoost",
+      "SVR",
+      "PhyFuse-RUL",
+      "XGB-QRE Engine",
+    ];
+
+    const withIndex = data.models.map((model, index) => ({
+      ...model,
+      _fallbackIndex: index,
+      _orderIndex: preferredOrder.indexOf(model.name),
+    }));
+
+    return withIndex
+      .sort((a, b) => {
+        const orderA = a._orderIndex === -1 ? Number.MAX_SAFE_INTEGER : a._orderIndex;
+        const orderB = b._orderIndex === -1 ? Number.MAX_SAFE_INTEGER : b._orderIndex;
+        if (orderA !== orderB) {
+          return orderA - orderB;
+        }
+        return a._fallbackIndex - b._fallbackIndex;
+      })
+      .map((model, index) => ({
+        rank: index + 1,
+        name: model.name,
+        family: model.family || "Standard",
+        accuracy: Number(((model.metrics?.r2 || 0) * 100).toFixed(2)),
+        rmse: Number((model.metrics?.rmse || 0).toFixed(2)),
       }));
   }, [data]);
 
@@ -233,6 +280,42 @@ const ModelComparison = () => {
           </Card>
         </Grid>
       )}
+      <Grid item xs={12}>
+        <Card>
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              RUL Model Performance Table (7 Standard + 2 Hybrid)
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              Accuracy is shown as R2 x 100 (%), and error is RMSE in cycles.
+            </Typography>
+            <TableContainer>
+              <Table size="small" aria-label="rul-model-performance-table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>#</TableCell>
+                    <TableCell>Model Name</TableCell>
+                    <TableCell>Family</TableCell>
+                    <TableCell align="right">Accuracy (%)</TableCell>
+                    <TableCell align="right">Error (RMSE cycles)</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {performanceTableRows.map((row) => (
+                    <TableRow key={row.name}>
+                      <TableCell>{row.rank}</TableCell>
+                      <TableCell>{row.name}</TableCell>
+                      <TableCell sx={{ textTransform: "capitalize" }}>{row.family}</TableCell>
+                      <TableCell align="right">{row.accuracy.toFixed(2)}</TableCell>
+                      <TableCell align="right">{row.rmse.toFixed(2)}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </CardContent>
+        </Card>
+      </Grid>
       <Grid item xs={12}>
         <Card>
           <CardContent sx={{ height: 300 }}>
