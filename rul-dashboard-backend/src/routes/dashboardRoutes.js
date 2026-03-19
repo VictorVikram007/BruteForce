@@ -5,6 +5,18 @@ const loadJson = require("../utils/loadJson");
 
 const router = express.Router();
 
+const getPythonCommand = () => {
+  if (process.env.PYTHON_PATH) {
+    return process.env.PYTHON_PATH;
+  }
+
+  if (process.platform === "win32") {
+    return path.join(__dirname, "..", "..", "..", ".venv", "Scripts", "python.exe");
+  }
+
+  return "python3";
+};
+
 const getMultiModelResults = () => loadJson("data/multi-model-results.json");
 
 router.get("/rul-prediction", (req, res) => {
@@ -114,9 +126,7 @@ router.post("/predict-rul", (req, res, next) => {
 
   const scriptPath = path.join(__dirname, "..", "..", "..", "ml_models", "predict_rul.py");
   const registryPath = path.join(__dirname, "..", "..", "data", "multi-model-results.json");
-  const pythonPath =
-    process.env.PYTHON_PATH ||
-    path.join(__dirname, "..", "..", "..", ".venv", "Scripts", "python.exe");
+  const pythonPath = getPythonCommand();
 
   execFile(
     pythonPath,
@@ -156,7 +166,7 @@ router.post("/train-models", (req, res, next) => {
     "data",
     "multi-model-results.json"
   );
-  const pythonPath = process.env.PYTHON_PATH || path.join(__dirname, "..", "..", "..", ".venv", "Scripts", "python.exe");
+  const pythonPath = getPythonCommand();
 
   execFile(
     pythonPath,
